@@ -1,6 +1,6 @@
 Name:           hsakmt
 Version:        1.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        AMD's HSA thunk library
 
 Group:          System Environment/Libraries
@@ -10,6 +10,8 @@ URL:            http://cgit.freedesktop.org/amd/hsakmt/
 Source0:        http://xorg.freedesktop.org/archive/individual/lib/hsakmt-%{version}.tar.bz2
 ExcludeArch:    %{arm} %{ix86}
 BuildRequires:  automake autoconf libtool
+
+Patch0:         0001_remove_dcl_from_for_loop.patch
 
 %description
 hsakmt is a thunk library for AMD's HSA Linux kernel driver (amdkfd)
@@ -24,7 +26,8 @@ Requires: pkgconfig
 Development library for hsakmt.
 
 %prep
-%setup -q -n hsakmt-%{version}
+%setup -q
+%patch0 -p1 -b .forloop
 
 %build
 %configure \
@@ -52,6 +55,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/pkgconfig/hsakmt-1.pc
 
 %changelog
+* Fri Nov 13 2015 Oded Gabbay <oded.gabbay@gmail.com> 1.0.0-6
+- Don't declare variable in for loop
+
 * Fri Nov 13 2015 Oded Gabbay <oded.gabbay@gmail.com> 1.0.0-5
 - Don't build for arm and i686
 
