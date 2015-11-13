@@ -1,6 +1,6 @@
-Name:           libhsakmt
+Name:           hsakmt
 Version:        1.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        AMD's HSA thunk library
 
 Group:          System Environment/Libraries
@@ -12,7 +12,7 @@ Source0:        http://xorg.freedesktop.org/archive/individual/lib/hsakmt-%{vers
 BuildRequires:  automake autoconf libtool
 
 %description
-libhsakmt is a thunk library for AMD's HSA Linux kernel driver (amdkfd)
+hsakmt is a thunk library for AMD's HSA Linux kernel driver (amdkfd)
 
 %package devel
 Summary: AMD HSA thunk library development package
@@ -52,6 +52,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/pkgconfig/hsakmt-1.pc
 
 %changelog
+* Fri Nov 13 2015 Oded Gabbay <oded.gabbay@gmail.com> 1.0.0-4
+- Rename package back to hsakmt
+
 * Sun Nov 1 2015 Oded Gabbay <oded.gabbay@gmail.com> 1.0.0-3
 - Rename package to libhsakmt
 
