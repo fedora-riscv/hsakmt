@@ -1,6 +1,6 @@
 Name:           hsakmt
 Version:        1.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        AMD's HSA thunk library
 
 Group:          System Environment/Libraries
@@ -8,7 +8,7 @@ Group:          System Environment/Libraries
 License:        MIT and GPLv2
 URL:            http://cgit.freedesktop.org/amd/hsakmt/
 Source0:        http://xorg.freedesktop.org/archive/individual/lib/hsakmt-%{version}.tar.bz2
-
+ExcludeArch:    %{arm} %{ix86}
 BuildRequires:  automake autoconf libtool
 
 %description
@@ -52,6 +52,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/pkgconfig/hsakmt-1.pc
 
 %changelog
+* Fri Nov 13 2015 Oded Gabbay <oded.gabbay@gmail.com> 1.0.0-5
+- Don't build for arm and i686
+
 * Fri Nov 13 2015 Oded Gabbay <oded.gabbay@gmail.com> 1.0.0-4
 - Rename package back to hsakmt
 
