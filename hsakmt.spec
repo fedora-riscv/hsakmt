@@ -1,6 +1,6 @@
 Name:           hsakmt
 Version:        1.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        AMD's HSA thunk library
 
 Group:          System Environment/Libraries
@@ -52,6 +52,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/pkgconfig/hsakmt-1.pc
 
 %changelog
+* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
 * Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
