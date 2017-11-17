@@ -1,0 +1,28 @@
+From e11528552885546a7c420d02599bb1bae01e89ff Mon Sep 17 00:00:00 2001
+From: Tom Stellard <tstellar@redhat.com>
+Date: Thu, 12 Oct 2017 20:50:06 -0700
+Subject: [PATCH] CMakeLists: Set the correct default version
+
+The default version is used if cmake cannot infer the version from the git tags.
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bc8ce50..c1e8726 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -35,8 +35,8 @@ list ( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules" )
+ 
+ include ( utils )
+ 
+-## Get the package version. The defaults to 1.0.0.
+-get_version ( "1.0.0" )
++## Get the package version.
++get_version ( "1.0.6" )
+ 
+ set ( BUILD_VERSION_MAJOR ${VERSION_MAJOR} )
+ set ( BUILD_VERSION_MINOR ${VERSION_MINOR} )
+-- 
+2.13.6
+

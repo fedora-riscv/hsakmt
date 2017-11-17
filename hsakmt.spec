@@ -1,60 +1,66 @@
+%global commit 172d101e103ae1dd6e1ed52aa708b65ba63e386d
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           hsakmt
-Version:        1.0.0
-Release:        6%{?dist}
+Version:        1.0.6
+Release:        1.20171026git%{shortcommit}%{?dist}
 Summary:        AMD's HSA thunk library
 
-Group:          System Environment/Libraries
-# The entire source code is MIT except auto-generated file ltmain.sh which is GPLv2
-License:        MIT and GPLv2
-URL:            http://cgit.freedesktop.org/amd/hsakmt/
-Source0:        http://xorg.freedesktop.org/archive/individual/lib/hsakmt-%{version}.tar.bz2
-ExcludeArch:    %{arm} %{ix86}
-BuildRequires:  automake autoconf libtool
+License:        MIT
+URL:            https://github.com/RadeonOpenCompute/ROCm
+Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface.git/archive/%{commit}/lib%{name}-%{shortcommit}.tar.gz
+Patch0:         0001-Fix-install-targets.patch
+Patch1:         0001-CMakeLists-Set-the-correct-default-version.patch
 
-Patch0:         0001_remove_dcl_from_for_loop.patch
+ExclusiveArch: x86_64
+BuildRequires: cmake
+BuildRequires: pciutils-devel
 
 %description
-hsakmt is a thunk library for AMD's HSA Linux kernel driver (amdkfd)
+This package includes the libhsakmt (Thunk) libraries
+for AMD KFD
+
 
 %package devel
 Summary: AMD HSA thunk library development package
-Group: Development/Libraries
-Requires: %{name}%{?isa} = %{version}-%{release}
-Requires: pkgconfig
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 Development library for hsakmt.
 
 %prep
-%setup -q
-%patch0 -p1 -b .forloop
+%autosetup -n  ROCT-Thunk-Interface-%{commit} -p1
 
 %build
-%configure \
-  --disable-static
+mkdir build
+cd build
 
-make %{?_smp_mflags} V=1
+%cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
+%make_build
 
 %install
-make install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name "*.la" -delete
+cd build
+%make_install
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %files
-%license COPYING
-%{_libdir}/libhsakmt-1*.so.*
+%doc README.md
+%license LICENSE.md
+%{_libdir}/libhsakmt.so.%{version}
+%{_libdir}/libhsakmt.so.1
 
 %files devel
-%dir %{_includedir}/hsakmt-1
-%{_includedir}/hsakmt-1/hsakmt.h
-%{_includedir}/hsakmt-1/hsakmttypes.h
-%{_libdir}/libhsakmt-1*.so
-%{_libdir}/pkgconfig/hsakmt-1.pc
+%{_libdir}/libhsakmt.so
+%{_includedir}/libhsakmt/hsakmt.h
+%{_includedir}/libhsakmt/hsakmttypes.h
+%{_includedir}/libhsakmt/linux/kfd_ioctl.h
 
 %changelog
+* Thu Oct 26 2017 Tom Stellard <tstellar@redhat.com> - 1.0.6-1.20171026git172d101
+- Update with latest code from https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface
+
 * Fri Nov 13 2015 Oded Gabbay <oded.gabbay@gmail.com> 1.0.0-6
 - Don't declare variable in for loop
 
@@ -74,3 +80,4 @@ find %{buildroot} -type f -name "*.la" -delete
 
 * Sat Oct 24 2015 Oded Gabbay <oded.gabbay@gmail.com> 1.0.0-1
 - Initial release of hsakmt, ver. 1.0.0
+
