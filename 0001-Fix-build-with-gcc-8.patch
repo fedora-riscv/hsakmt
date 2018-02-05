@@ -1,0 +1,31 @@
+From 2f833f3868f30c27e9ad8fd75b5730267d9e17e8 Mon Sep 17 00:00:00 2001
+From: Tom Stellard <tstellar@redhat.com>
+Date: Mon, 5 Feb 2018 08:59:51 -0800
+Subject: [PATCH] Fix build with gcc 8
+
+src/topology.c:830:3: error: 'strncpy' specified bound 64 equals destination size [-Werror=stringop-truncation]
+   strncpy((char *)props->AMDName, hsa_gfxip->amd_name, sizeof(props->AMDName));
+   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---
+ src/topology.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/topology.c b/src/topology.c
+index ef330af..2446e1f 100644
+--- a/src/topology.c
++++ b/src/topology.c
+@@ -827,7 +827,10 @@ HSAKMT_STATUS topology_sysfs_get_node_props(uint32_t node_id,
+ 		}
+ 
+ 		/* Retrieve the CAL name of the node */
+-		strncpy((char *)props->AMDName, hsa_gfxip->amd_name, sizeof(props->AMDName));
++		/* FIXME: This could be sizeof(props->AMDName), but we need to use
++		 * sizeof(props->AMDName) - 1 to work around a bug in gcc 8.*/
++		strncpy((char *)props->AMDName, hsa_gfxip->amd_name, sizeof(props->AMDName) - 1);
++		props->AMDName[sizeof(props->AMDName) - 1] = '\0';
+ 		if (props->NumCPUCores) {
+ 			/* Is APU node */
+ 			ret = topology_get_cpu_model_name(props, true);
+-- 
+2.13.6
+
