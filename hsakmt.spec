@@ -8,7 +8,7 @@ Summary:        AMD's HSA thunk library
 
 License:        MIT
 URL:            https://github.com/RadeonOpenCompute/ROCm
-Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface.git/archive/%{commit}/lib%{name}-%{shortcommit}.tar.gz
+Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archive/%{commit}/lib%{name}-%{shortcommit}.tar.gz
 Patch0:         0001-Fix-install-targets.patch
 Patch1:         0001-CMakeLists-Set-the-correct-default-version.patch
 
