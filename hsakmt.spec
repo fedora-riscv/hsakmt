@@ -3,7 +3,7 @@
 
 Name:           hsakmt
 Version:        1.0.6
-Release:        2.20171026git%{shortcommit}%{?dist}
+Release:        3.20171026git%{shortcommit}%{?dist}
 Summary:        AMD's HSA thunk library
 
 License:        MIT
@@ -13,7 +13,7 @@ Patch0:         0001-Fix-install-targets.patch
 Patch1:         0001-CMakeLists-Set-the-correct-default-version.patch
 Patch2:         0001-Fix-build-with-gcc-8.patch
 
-ExclusiveArch: x86_64
+ExclusiveArch: x86_64 aarch64
 BuildRequires: cmake
 BuildRequires: pciutils-devel
 
@@ -59,6 +59,9 @@ cd build
 %{_includedir}/libhsakmt/linux/kfd_ioctl.h
 
 %changelog
+* Fri Feb 09 2018 Tom Stellard <tstellar@redhat.com> - 1.0.6-3.20171026git172d101
+- Build for aarch64
+
 * Mon Feb 05 2018 Tom Stellard <tstellar@redhat.com> - 1.0.6-2.20171026git172d101
 - Fix build with gcc 8
 
