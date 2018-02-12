@@ -3,7 +3,7 @@
 
 Name:           hsakmt
 Version:        1.0.6
-Release:        3.20171026git%{shortcommit}%{?dist}
+Release:        4.20171026git%{shortcommit}%{?dist}
 Summary:        AMD's HSA thunk library
 
 License:        MIT
@@ -12,6 +12,7 @@ Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archiv
 Patch0:         0001-Fix-install-targets.patch
 Patch1:         0001-CMakeLists-Set-the-correct-default-version.patch
 Patch2:         0001-Fix-build-with-gcc-8.patch
+Patch3:         0001-Use-CFLAGS-and-LDFLAGS-specified-in-environment-vari.patch
 
 ExclusiveArch: x86_64 aarch64
 BuildRequires: cmake
@@ -59,6 +60,10 @@ cd build
 %{_includedir}/libhsakmt/linux/kfd_ioctl.h
 
 %changelog
+* Mon Feb 12 2018 Tom Stellard <tstellar@redhat.com> - 1.0.6-4.20171026git172d101
+- Fix build flag injection
+- rhbz#1543787
+
 * Fri Feb 09 2018 Tom Stellard <tstellar@redhat.com> - 1.0.6-3.20171026git172d101
 - Build for aarch64
 
