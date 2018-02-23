@@ -3,7 +3,7 @@
 
 Name:           hsakmt
 Version:        1.0.6
-Release:        4.20171026git%{shortcommit}%{?dist}
+Release:        5.20171026git%{shortcommit}%{?dist}
 Summary:        AMD's HSA thunk library
 
 License:        MIT
@@ -17,6 +17,13 @@ Patch3:         0001-Use-CFLAGS-and-LDFLAGS-specified-in-environment-vari.patch
 ExclusiveArch: x86_64 aarch64
 BuildRequires: cmake
 BuildRequires: pciutils-devel
+
+%if 0%{?epel} == 7
+# We still the original cmake package on epel, because it provides the
+# %%cmake macro.
+BuildRequires: cmake3
+%global __cmake %{_bindir}/cmake3
+%endif
 
 %description
 This package includes the libhsakmt (Thunk) libraries
@@ -60,6 +67,9 @@ cd build
 %{_includedir}/libhsakmt/linux/kfd_ioctl.h
 
 %changelog
+* Fri Feb 23 2018 Tom Stellard <tstellar@redhat.com> - 1.0.6-5.20171026git172d101
+- Fix build for epel7
+
 * Mon Feb 12 2018 Tom Stellard <tstellar@redhat.com> - 1.0.6-4.20171026git172d101
 - Fix build flag injection
 - rhbz#1543787
