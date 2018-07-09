@@ -15,6 +15,8 @@ Patch2:         0001-Fix-build-with-gcc-8.patch
 Patch3:         0001-Use-CFLAGS-and-LDFLAGS-specified-in-environment-vari.patch
 
 ExclusiveArch: x86_64 aarch64
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires: cmake
 BuildRequires: pciutils-devel
 
