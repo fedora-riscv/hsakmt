@@ -3,7 +3,7 @@
 
 Name:           hsakmt
 Version:        1.0.6
-Release:        5.20171026git%{shortcommit}%{?dist}
+Release:        6.20171026git%{shortcommit}%{?dist}
 Summary:        AMD's HSA thunk library
 
 License:        MIT
@@ -69,6 +69,9 @@ cd build
 %{_includedir}/libhsakmt/linux/kfd_ioctl.h
 
 %changelog
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-6.20171026git172d101
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Fri Feb 23 2018 Tom Stellard <tstellar@redhat.com> - 1.0.6-5.20171026git172d101
 - Fix build for epel7
 
