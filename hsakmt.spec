@@ -1,24 +1,22 @@
-%global commit 172d101e103ae1dd6e1ed52aa708b65ba63e386d
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
+%global rocm_version 2.0.0
 Name:           hsakmt
 Version:        1.0.6
-Release:        6.20171026git%{shortcommit}%{?dist}
+Release:        7.rocm%{rocm_version}%{?dist}
 Summary:        AMD's HSA thunk library
 
 License:        MIT
 URL:            https://github.com/RadeonOpenCompute/ROCm
-Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archive/%{commit}/lib%{name}-%{shortcommit}.tar.gz
+Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archive/roc-%{rocm_version}.tar.gz
 Patch0:         0001-Fix-install-targets.patch
 Patch1:         0001-CMakeLists-Set-the-correct-default-version.patch
-Patch2:         0001-Fix-build-with-gcc-8.patch
-Patch3:         0001-Use-CFLAGS-and-LDFLAGS-specified-in-environment-vari.patch
+Patch2:         0001-Use-CFLAGS-and-LDFLAGS-specified-in-environment-vari.patch
 
 ExclusiveArch: x86_64 aarch64
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires: cmake
 BuildRequires: pciutils-devel
+BuildRequires: numactl-devel
 
 %if 0%{?epel} == 7
 # We still the original cmake package on epel, because it provides the
@@ -40,7 +38,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Development library for hsakmt.
 
 %prep
-%autosetup -n  ROCT-Thunk-Interface-%{commit} -p1
+%autosetup -n  ROCT-Thunk-Interface-roc-%{rocm_version} -p1
 
 %build
 mkdir build
@@ -52,6 +50,8 @@ cd build
 %install
 cd build
 %make_install
+
+rm %{buildroot}/usr/libhsakmt/LICENSE.md
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -69,6 +69,9 @@ cd build
 %{_includedir}/libhsakmt/linux/kfd_ioctl.h
 
 %changelog
+* Tue Jan 15 2019 Tom Stellard <tstellar@redhat.com> - 1.0.6-7.rocm2.0.0
+- ROCm 2.0.0 Release
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-6.20171026git172d101
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
