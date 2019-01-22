@@ -53,8 +53,7 @@ cd build
 
 rm %{buildroot}/usr/libhsakmt/LICENSE.md
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 %files
 %doc README.md
