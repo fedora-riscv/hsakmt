@@ -1,7 +1,7 @@
 %global rocm_version 2.0.0
 Name:           hsakmt
 Version:        1.0.6
-Release:        9.rocm%{rocm_version}%{?dist}
+Release:        10.rocm%{rocm_version}%{?dist}
 Summary:        AMD's HSA thunk library
 
 License:        MIT
@@ -68,6 +68,9 @@ rm %{buildroot}/usr/libhsakmt/LICENSE.md
 %{_includedir}/libhsakmt/linux/kfd_ioctl.h
 
 %changelog
+* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-10.rocm2.0.0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-9.rocm2.0.0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
