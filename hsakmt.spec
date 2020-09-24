@@ -1,7 +1,8 @@
+%define __cmake_in_source_build 1
 %global rocm_version 3.5.0
 Name:           hsakmt
 Version:        1.0.6
-Release:        13.rocm%{rocm_version}%{?dist}
+Release:        14.rocm%{rocm_version}%{?dist}
 Summary:        AMD's HSA thunk library
 
 License:        MIT
@@ -68,6 +69,9 @@ cd build
 %{_includedir}/libhsakmt/linux/kfd_ioctl.h
 
 %changelog
+* Wed Sep 23 2020 Jeff Law <law@redhat.com> - 1.0.6-14.rocm3.5.0
+- Use cmake_in_source_build to fix FTBFS due to recent cmake macro changes
+
 * Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-13.rocm3.5.0
 - Second attempt - Rebuilt for
   https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
