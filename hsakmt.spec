@@ -1,8 +1,8 @@
 %define __cmake_in_source_build 1
-%global rocm_version 3.5.0
+%global rocm_version 3.9.0
 Name:           hsakmt
 Version:        1.0.6
-Release:        14.rocm%{rocm_version}%{?dist}
+Release:        15.rocm%{rocm_version}%{?dist}
 Summary:        AMD's HSA thunk library
 
 License:        MIT
@@ -10,8 +10,6 @@ URL:            https://github.com/RadeonOpenCompute/ROCm
 Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archive/rocm-%{rocm_version}.tar.gz
 
 Patch0:         0001-Fix-install-targets.patch
-#Patch1:         0001-CMakeLists-Set-the-correct-default-version.patch
-#Patch2:         0001-Use-CFLAGS-and-LDFLAGS-specified-in-environment-vari.patch
 
 ExclusiveArch: x86_64 aarch64
 BuildRequires:  gcc
@@ -48,11 +46,14 @@ mkdir build
 cd build
 
 %cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
-%make_build
+%cmake_build
 
 %install
 cd build
-%make_install
+%cmake_install
+
+mkdir -p %{buildroot}%{_includedir}/libhsakmt/linux
+mv %{buildroot}%{_includedir}/libhsakmt/kfd_ioctl.h %{buildroot}%{_includedir}/libhsakmt/linux/
 
 %ldconfig_scriptlets
 
@@ -67,8 +68,13 @@ cd build
 %{_includedir}/libhsakmt/hsakmt.h
 %{_includedir}/libhsakmt/hsakmttypes.h
 %{_includedir}/libhsakmt/linux/kfd_ioctl.h
+%{_libdir}/cmake/hsakmt/
+%{_datadir}/pkgconfig/libhsakmt.pc
 
 %changelog
+* Mon Nov 23 2020 Philipp Knechtges <philipp-dev@knechtges.com> - 1.0.6-15.rocm3.9.0
+- Update to ROCm version 3.9.0
+
 * Wed Sep 23 2020 Jeff Law <law@redhat.com> - 1.0.6-14.rocm3.5.0
 - Use cmake_in_source_build to fix FTBFS due to recent cmake macro changes
 
