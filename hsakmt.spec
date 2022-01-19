@@ -1,21 +1,20 @@
 %define __cmake_in_source_build 1
-%global rocm_version 3.9.0
+%global rocm_version 5.0.0
 Name:           hsakmt
 Version:        1.0.6
-Release:        18.rocm%{rocm_version}%{?dist}
-Summary:        AMD's HSA thunk library
+Release:        19.rocm%{rocm_version}%{?dist}
+Summary:        AMD HSA thunk library
 
 License:        MIT
-URL:            https://github.com/RadeonOpenCompute/ROCm
-Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archive/rocm-%{rocm_version}.tar.gz
-
-Patch0:         0001-Fix-install-targets.patch
+URL:            https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface
+Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archive/rocm-%{rocm_version}.tar.gz#/%{name}-rocm-%{rocm_version}.tar.gz
 
 ExclusiveArch: x86_64 aarch64
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires: cmake
 BuildRequires: pciutils-devel
+BuildRequires: libdrm-devel
 BuildRequires: numactl-devel
 
 %if 0%{?epel} == 7
@@ -26,8 +25,7 @@ BuildRequires: cmake3
 %endif
 
 %description
-This package includes the libhsakmt (Thunk) libraries
-for AMD KFD
+This package includes the libhsakmt (HSA thunk) libraries for AMD KFD
 
 
 %package devel
@@ -36,7 +34,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides: hsakmt(rocm) = %{rocm_version}
 
 %description devel
-Development library for hsakmt.
+Development library for the libhsakmt (HSA thunk) libraries for AMD KFD
 
 %prep
 %autosetup -n  ROCT-Thunk-Interface-rocm-%{rocm_version} -p1
@@ -52,8 +50,8 @@ cd build
 cd build
 %cmake_install
 
-mkdir -p %{buildroot}%{_includedir}/libhsakmt/linux
-mv %{buildroot}%{_includedir}/libhsakmt/kfd_ioctl.h %{buildroot}%{_includedir}/libhsakmt/linux/
+# We install this via license macro instead:
+rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 
 %ldconfig_scriptlets
 
@@ -65,13 +63,16 @@ mv %{buildroot}%{_includedir}/libhsakmt/kfd_ioctl.h %{buildroot}%{_includedir}/l
 
 %files devel
 %{_libdir}/libhsakmt.so
-%{_includedir}/libhsakmt/hsakmt.h
-%{_includedir}/libhsakmt/hsakmttypes.h
-%{_includedir}/libhsakmt/linux/kfd_ioctl.h
+%{_includedir}/hsakmt.h
+%{_includedir}/hsakmttypes.h
 %{_libdir}/cmake/hsakmt/
 %{_datadir}/pkgconfig/libhsakmt.pc
 
 %changelog
+* Fri Feb 11 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-19.rocm5.0.0
+- Update to ROCm version 5.0.0
+- General improvements to spec file
+
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-18.rocm3.9.0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
