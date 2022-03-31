@@ -1,8 +1,8 @@
 %define __cmake_in_source_build 1
-%global rocm_version 5.0.0
+%global rocm_version 5.1.0
 Name:           hsakmt
 Version:        1.0.6
-Release:        19.rocm%{rocm_version}%{?dist}
+Release:        20.rocm%{rocm_version}%{?dist}
 Summary:        AMD HSA thunk library
 
 License:        MIT
@@ -69,6 +69,9 @@ rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 %{_datadir}/pkgconfig/libhsakmt.pc
 
 %changelog
+* Thu Mar 31 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-20.rocm5.1.0
+- Update to ROCm version 5.1.0
+
 * Fri Feb 11 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-19.rocm5.0.0
 - Update to ROCm version 5.0.0
 - General improvements to spec file
