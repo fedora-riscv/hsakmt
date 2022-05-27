@@ -70,7 +70,7 @@ rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 %{_datadir}/pkgconfig/libhsakmt.pc
 
 %changelog
-* Thu May 26 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-20.rocm5.1.0
+* Thu May 26 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-20.rocm5.0.2
 - Update to ROCm version 5.0.2
 - Enable ppc64le
 
