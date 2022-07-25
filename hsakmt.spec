@@ -1,10 +1,10 @@
 %define __cmake_in_source_build 1
 %global rocm_release 5.2
-%global rocm_patch 0
+%global rocm_patch 1
 %global rocm_version %{rocm_release}.%{rocm_patch}
 Name:           hsakmt
 Version:        1.0.6
-Release:        23.rocm%{rocm_version}%{?dist}
+Release:        25.rocm%{rocm_version}%{?dist}
 Summary:        AMD HSA thunk library
 
 License:        MIT
@@ -72,6 +72,12 @@ rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 %{_datadir}/pkgconfig/libhsakmt.pc
 
 %changelog
+* Sun Jul 24 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-25.rocm5.2.1
+- Update to 5.2.1
+
+* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-24.rocm5.2.0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
 * Sun Jul 03 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-23.rocm5.2.0
 - Update to 5.2.0
 
