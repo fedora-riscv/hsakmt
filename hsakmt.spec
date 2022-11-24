@@ -1,8 +1,10 @@
 %define __cmake_in_source_build 1
-%global rocm_version 5.0.2
+%global rocm_release 5.2
+%global rocm_patch 3
+%global rocm_version %{rocm_release}.%{rocm_patch}
 Name:           hsakmt
 Version:        1.0.6
-Release:        20.rocm%{rocm_version}%{?dist}
+Release:        21.rocm%{rocm_version}%{?dist}
 Summary:        AMD HSA thunk library
 
 License:        MIT
@@ -32,7 +34,7 @@ This package includes the libhsakmt (HSA thunk) libraries for AMD KFD
 %package devel
 Summary: AMD HSA thunk library development package
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Provides: hsakmt(rocm) = %{rocm_version}
+Provides: hsakmt(rocm) = %{rocm_release}
 
 %description devel
 Development library for the libhsakmt (HSA thunk) libraries for AMD KFD
@@ -70,6 +72,10 @@ rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 %{_datadir}/pkgconfig/libhsakmt.pc
 
 %changelog
+* Thu Nov 24 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-21.rocm5.2.3
+- Update to ROCm version 5.2.3
+- Synchronize with spec file from fedora 36
+
 * Thu May 26 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-20.rocm5.0.2
 - Update to ROCm version 5.0.2
 - Enable ppc64le
