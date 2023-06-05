@@ -1,6 +1,6 @@
 %define __cmake_in_source_build 1
-%global rocm_release 5.2
-%global rocm_patch 3
+%global rocm_release 5.4
+%global rocm_patch 4
 %global rocm_version %{rocm_release}.%{rocm_patch}
 Name:           hsakmt
 Version:        1.0.6
@@ -66,12 +66,17 @@ rm %{buildroot}%{_docdir}/hsakmt/LICENSE.md
 
 %files devel
 %{_libdir}/libhsakmt.so
-%{_includedir}/hsakmt.h
-%{_includedir}/hsakmttypes.h
+%{_includedir}/hsakmt
 %{_libdir}/cmake/hsakmt/
 %{_datadir}/pkgconfig/libhsakmt.pc
+#These headers are deprecated and will be removed soon:
+%{_includedir}/hsakmt.h
+%{_includedir}/hsakmttypes.h
 
 %changelog
+* Sun Jun 04 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-21.rocm5.4.4
+- Update to 5.4.4
+
 * Thu Nov 24 2022 Jeremy Newton <alexjnewt at hotmail dot com> - 1.0.6-21.rocm5.2.3
 - Update to ROCm version 5.2.3
 - Synchronize with spec file from fedora 36
