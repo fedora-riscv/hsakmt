@@ -4,7 +4,7 @@
 %global rocm_version %{rocm_release}.%{rocm_patch}
 Name:           hsakmt
 Version:        1.0.6
-Release:        38.rocm%{rocm_version}%{?dist}
+Release:        38.rocm%{rocm_version}.rv64%{?dist}
 Summary:        AMD HSA thunk library
 
 License:        MIT
@@ -15,7 +15,7 @@ Source0:        https://github.com/RadeonOpenCompute/ROCT-Thunk-Interface/archiv
 Patch0:         fixsymbols.patch
 
 # Fedora builds AMD HSA kernel support for these 64bit targets:
-ExclusiveArch: x86_64 aarch64 ppc64le
+ExclusiveArch: x86_64 aarch64 ppc64le riscv64
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires: cmake
